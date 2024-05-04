@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="{{objuser.theme}}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="theme-color" content="#F2BD24"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css" />
+
+        <!-- importando CSS e JV  -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">   
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/2cbdb08e7a.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <!-- Importando icones -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="shortcut icon" href="{% static 'icons/logonavegador.png'%}">
+        <title>Gestão Financeira</title>
+    </head>
+
+    <body>
+        <header class="">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <span class="navbar-toggler-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end me-2" id="navbarNavDarkDropdown">
+                        <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="material-symbols-outlined">
+                                    {% if objuser.theme == 'light' %}
+                                        light_mode
+                                    {% elif objuser.theme == 'dark' %}
+                                        dark_mode
+                                    {% else %}
+                                        contrast
+                                    {% endif %}
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item {% if objuser.theme == 'light' %}active{% endif %} theme-choice" href="#" data-theme="light">
+                                        <span class="material-symbols-outlined">
+                                            light_mode
+                                        </span>
+                                        Claro                                        
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item {% if objuser.theme == 'dark' %}active{% endif %} theme-choice" href="#" data-theme="dark">
+                                        <span class="material-symbols-outlined">
+                                            dark_mode
+                                        </span>
+                                        Escuro                                        
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item {% if objuser.theme == 'auto' %}active{% endif %} theme-choice" href="#" data-theme="auto">
+                                        <span class="material-symbols-outlined">
+                                            contrast
+                                        </span>
+                                        Auto                                        
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        </ul>
+                    </div>                     
+                    <button class="btn btn-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Precisa de Ajuda?</button>           
+                </div>
+            </nav>
+            <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+                    <h6 class="offcanvas-title" id="offcanvasScrollingLabel"><img src="{% static 'icons/logonavegador.png'%}" alt="Imagem logo do sistema" width="60px">Hermes | Controle Financeiro</h6>
+                    <hr class="dropdown-divider">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="text-center">
+                        {% if objuser.image %}
+                            <img src="{{objuser.image.url}}" class="rounded-circle" alt="{{objuser.full_name}}" width="160px" height="150px">
+                        {% endif %}
+                    </div>
+                    <p class="mt-3">Olá <b>{{objuser.full_name}}</b>, seja bem-vinda de volta! Vamos juntos gerenciar suas finanças e sair do aperto. Hoje é <b>{{now}}</b> e estamos aqui para ajudá-la.</p>
+                    <h4>Gerenciamento</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Plano Maior</li>
+                        <li class="list-group-item">Plano Mensal</li>
+                        <li class="list-group-item">Relatórios</li>
+                        <li class="list-group-item">A fourth item</li>
+                        <li class="list-group-item">And a fifth one</li>
+                    </ul>
+                    <h4 class="mt-4">Relatório</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Relatórios</li>
+                        <li class="list-group-item">Relatórios</li>
+                    </ul>
+                    <h4 class="mt-4">Configurações</h4>
+                    <ul class="list-group list-group-flush mt-4">
+                        <li class="list-group-item">Minha Conta</li>
+                        <li class="list-group-item">Sair</li>
+                    </ul>
+
+                    <p class="mt-5">Created by GomesMilla</p>
+                </div>
+            </div>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Prezados,</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur egestas egestas nunc eget lobortis. In velit massa, fermentum sed hendrerit a, euismod vel ante. Etiam viverra mi ac purus mattis, nec porta lectus sodales. In ante ipsum, feugiat non varius vel, vulputate feugiat augue. Phasellus magna quam, laoreet eu luctus eget, porttitor eget justo. Vivamus semper leo quis ultrices pretium. Nulla lorem est, pulvinar eget nulla sed, tempus facilisis nibh. Integer ultrices, enim ac tempor aliquet, dui massa imperdiet ipsum, nec tincidunt odio ligula sed quam. Vivamus commodo lobortis elit ac egestas. Curabitur ac consectetur massa, eu sollicitudin tortor. Nunc posuere vitae orci vitae eleifend. Sed at enim felis. Duis rutrum, leo a cursus fermentum, quam sapien efficitur nunc, eget suscipit mauris magna dictum sem.
+
+                    Phasellus rutrum tellus nibh, sit amet vestibulum justo pulvinar a. Nunc sed nulla sed turpis dignissim suscipit. Ut a mauris elementum, sollicitudin tortor sit amet, convallis ipsum. Sed ut pharetra libero. Morbi nec massa augue. Sed pretium blandit massa eu feugiat. Morbi semper ante id tortor eleifend, ut dapibus mi malesuada. Donec a varius ipsum. Praesent laoreet arcu sed elit vestibulum, in interdum nisl varius. Suspendisse at ligula nec ex fringilla convallis quis aliquet nulla. Vestibulum semper ultricies metus. Curabitur varius orci porta lorem pretium, eget tempus est volutpat. Nam cursus, diam porttitor malesuada suscipit, libero nisl accumsan lectus, et dapibus lacus libero aliquet ex. Maecenas ac imperdiet sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                    
+                    Fusce ultrices quis tellus sed ornare. Suspendisse vel scelerisque lorem, ac tincidunt ipsum. Nullam nulla sem, sodales eget sem ac, suscipit rutrum ligula. In ex velit, ultricies vel maximus eget, tincidunt nec erat. Pellentesque ut ipsum blandit, dictum lorem vel, fringilla nulla. Suspendisse vel velit sit amet sem tincidunt pretium non sed enim. Sed porttitor nisi turpis, nec tempus mauris pellentesque dapibus. Donec id neque eu dui hendrerit efficitur aliquam sit amet metus.
+                    
+                    Pellentesque at nibh magna. Vivamus condimentum convallis urna, ac hendrerit neque gravida auctor. Ut ultrices lorem at nisi hendrerit sagittis. Vestibulum ac ex quis felis volutpat efficitur eu iaculis metus. Ut laoreet leo lorem, id vestibulum sem blandit nec. Nam faucibus lobortis justo id mattis. Aenean ullamcorper in purus volutpat rhoncus. Cras ac rhoncus leo.
+                    
+                    Etiam pharetra rutrum semper. Phasellus a efficitur ex. Donec purus lorem, pharetra a tellus eget, sodales scelerisque ante. Ut quis dolor nibh. Mauris sem orci, consectetur sed suscipit ac, lobortis at arcu. Morbi aliquam, libero vel molestie tempor, velit elit mollis sapien, a bibendum arcu ligula nec metus. Morbi quis leo ac arcu elementum laoreet at vitae odio. Nunc dictum ornare hendrerit. Nam et aliquet eros. Suspendisse massa enim, ultrices eu faucibus nec, scelerisque non neque. Vivamus mauris dui, laoreet at posuere eu, commodo eu leo. Sed congue ante nec justo fermentum, non laoreet est ultricies. Aenean tempor elit interdum eleifend facilisis.
+                    
+                    Integer non magna non lectus consequat tristique. Maecenas posuere, lectus quis tempor euismod, tellus enim dignissim quam, sed posuere enim enim nec nulla. Mauris imperdiet at metus eu consequat. Nulla facilisis sagittis eros, eget sagittis sapien suscipit commodo. Vivamus eget venenatis lacus, ac ultricies lectus. Nulla at dui lectus. Fusce et magna id ipsum lacinia pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus suscipit in ipsum et sodales. Nulla odio sapien, sollicitudin eu vulputate at, placerat quis tellus.
+                    
+                    Curabitur fermentum ex id euismod pharetra. Etiam nec imperdiet erat. Mauris porta diam sed congue auctor. Donec sollicitudin eleifend velit, vel lobortis lectus convallis id. Sed consectetur vel mauris eu tempor. Nulla vel placerat leo. Aenean pulvinar magna mi, eget fringilla massa egestas in. Aliquam varius risus in dolor rutrum finibus. Praesent et sapien justo.
+                    
+                    Sed elementum ex ut metus efficitur porta. Proin maximus nisi id sollicitudin semper. Sed vel ligula fermentum, pellentesque mi quis, venenatis nisl. Curabitur ultrices eleifend nisl sed pellentesque. Proin quis leo aliquam neque rhoncus lobortis. Fusce ultricies, diam ut malesuada tristique, leo nulla iaculis magna, ut faucibus ante sem nec arcu. Aenean porta consectetur neque vel interdum. Nunc neque velit, aliquet ut nunc eu, consequat tempus nulla. Aenean lobortis, enim a pretium ultrices, sem neque facilisis urna, ac tincidunt metus sapien quis felis. Pellentesque viverra imperdiet neque, ultrices vestibulum erat molestie a. Cras tincidunt eros in libero vestibulum, vitae fermentum sapien dictum.</p>
+                </div>
+            </div>
+        </header>
+        <main>        
+            {% block content %} 
+            {% endblock content %}
+        </main>
+        <footer>        
+        </footer>
+        {% block scripts %}
+            <script>
+                $(document).ready(function(){
+                    $('.theme-choice').click(function(e){
+                        e.preventDefault();
+                        var selectedTheme = $(this).data('theme');
+                
+                        $.ajax({
+                            url: '/change-theme/', 
+                            method: 'POST',
+                            data: {
+                                'theme': selectedTheme,
+                                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success: function(response) {
+                                if(response.status === 'ok') {
+                                    location.reload(true);
+                                }
+                            },
+                            error: function(){
+                                alert('Erro ao mudar o tema.');
+                            }
+                        });
+                    });
+                });
+                
+            </script> 
+        {% endblock %}
+    </body>
+</html>
